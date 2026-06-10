@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken")
  * @access Public 
  */
 
-async function registerUserController(res, req) {
+async function registerUserController(req, res) {
 
    const { username, email, password } = req.body
    /**user must enter usename email and passwords
@@ -22,9 +22,9 @@ async function registerUserController(res, req) {
       })
    }
    /**checking if user exist , if yes return res.send 400 if also return  */
-   const isUserAIreadyExists = await userModel.modelName.findOne({
+   const isUserAIreadyExists = await userModel.findOne({
       $or: [{ username }, { email }]
-   })
+   });
 
    if (isUserAIreadyExists) {
       /**in future isUsernameExists .username means email can exists */
